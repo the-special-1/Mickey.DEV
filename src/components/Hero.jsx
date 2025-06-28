@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const HeroSection = styled(motion.section)`
   min-height: 100vh;
@@ -7,14 +8,19 @@ const HeroSection = styled(motion.section)`
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: #0f172a; /* bg-slate-900 */
+  background: ${({ theme }) => theme.body};
   padding: 1rem;
+  overflow: hidden;
 `;
 
 const HeroTitle = styled(motion.h1)`
   font-size: 3rem; /* text-5xl */
   font-weight: 800; /* font-extrabold */
   margin-bottom: 1rem; /* mb-4 */
+  background: ${({ theme }) => theme.accentGradient};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
   @media (min-width: 768px) {
     font-size: 4.5rem; /* md:text-7xl */
   }
@@ -22,11 +28,12 @@ const HeroTitle = styled(motion.h1)`
 
 const HeroSubtitle = styled(motion.p)`
   font-size: 1.125rem; /* text-lg */
-  color: #d1d5db; /* text-gray-300 */
-  margin-bottom: 2rem; /* mb-8 */
+  color: ${({ theme }) => theme.text}99; /* 60% opacity */
+  margin-bottom: 2.5rem; /* mb-10 */
   max-width: 48rem; /* max-w-3xl */
   margin-left: auto;
   margin-right: auto;
+  letter-spacing: 0.5px;
   @media (min-width: 768px) {
     font-size: 1.5rem; /* md:text-2xl */
   }
@@ -34,21 +41,25 @@ const HeroSubtitle = styled(motion.p)`
 
 const HeroButton = styled(motion.a)`
   display: inline-block;
-  background-color: #2563eb; /* bg-blue-600 */
+  background: ${({ theme }) => theme.accentGradient};
   color: #ffffff; /* text-white */
   font-weight: 700; /* font-bold */
-  padding: 0.75rem 2rem; /* py-3 px-8 */
+  padding: 1rem 2.5rem;
   border-radius: 9999px; /* rounded-full */
   font-size: 1.125rem; /* text-lg */
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
   text-decoration: none;
+  border: none;
+  box-shadow: ${({ theme }) => theme.shadow};
 
   &:hover {
-    background-color: #1d4ed8; /* hover:bg-blue-700 */
+    transform: scale(1.05);
+    box-shadow: ${({ theme }) => theme.hoverShadow};
   }
 `;
 
 const Hero = () => {
+  const { t } = useTranslation();
   return (
     <HeroSection id="hero">
       <div className="container mx-auto px-4">
@@ -57,14 +68,14 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          Hi, I'm Your Name
+          {t('hero_greeting')}
         </HeroTitle>
         <HeroSubtitle
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          A Passionate Software Engineer.
+          {t('hero_subtitle')}
         </HeroSubtitle>
         <HeroButton
           href="#projects"
@@ -72,7 +83,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          View My Work
+          {t('hero_button')}
         </HeroButton>
       </div>
     </HeroSection>

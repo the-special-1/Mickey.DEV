@@ -1,8 +1,10 @@
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 const StyledFooter = styled.footer`
-  background-color: #0f172a; /* bg-slate-900 */
-  padding: 1.5rem 0; /* py-6 */
+  background-color: ${({ theme }) => theme.cardBg};
+  padding: 2rem 1rem; /* py-8 px-4 */
+  text-align: center;
 `;
 
 const Container = styled.div`
@@ -10,14 +12,15 @@ const Container = styled.div`
   margin: 0 auto;
   padding: 0 1rem; /* px-4 */
   text-align: center;
-  color: #6b7280; /* text-gray-500 */
+  color: ${({ theme }) => theme.textGray500}; /* text-gray-500 */
 `;
 
 const Footer = () => {
+  const { t } = useTranslation();
   return (
     <StyledFooter>
       <Container>
-        <p>&copy; {new Date().getFullYear()} Your Name. All rights reserved.</p>
+        <p>{t('footer_text', { year: new Date().getFullYear() })}</p>
       </Container>
     </StyledFooter>
   );

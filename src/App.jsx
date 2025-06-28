@@ -1,32 +1,39 @@
-import { useState } from 'react'
-import styled from 'styled-components';
-
+import { useState } from 'react';
+import styled, { ThemeProvider } from 'styled-components';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Hero from './components/Hero';
 import About from './components/About';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
+import { GlobalStyles } from './styles/GlobalStyles';
+import { lightTheme, darkTheme } from './styles/themes';
 
-const StyledApp = styled.div`
-  min-height: 100vh;
-  background-color: #0f172a; /* formerly bg-slate-900 */
-  color: #f8fafc; /* formerly text-white */
-  font-family: sans-serif; /* formerly font-sans */
+const AppContainer = styled.div`
+  /* The background is now handled by GlobalStyles */
 `;
 
 function App() {
+  const [theme, setTheme] = useState('dark');
+
+  const themeToggler = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
+
   return (
-    <StyledApp>
-      <Header />
-      <main>
-        <Hero />
-        <About />
-        <Projects />
-        <Contact />
-      </main>
-      <Footer />
-    </StyledApp>
+    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+      <GlobalStyles />
+      <AppContainer>
+        <Header themeToggler={themeToggler} theme={theme} />
+        <main>
+          <Hero />
+          <About />
+          <Projects />
+          <Contact />
+        </main>
+        <Footer />
+      </AppContainer>
+    </ThemeProvider>
   );
 }
 

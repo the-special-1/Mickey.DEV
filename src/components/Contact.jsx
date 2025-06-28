@@ -1,148 +1,92 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { FaGithub, FaTelegram, FaLinkedin } from 'react-icons/fa';
+import TelegramQR from '../assets/telegram-qr.png';
+import { useTranslation } from 'react-i18next';
 
 const ContactSection = styled.section`
-  padding: 5rem 1rem; /* py-20 px-4 */
-  background-color: #1e293b; /* bg-slate-800 */
-`;
-
-const Container = styled.div`
-  max-width: 1280px;
-  margin: 0 auto;
+  padding: 5rem 1rem;
+  background-color: ${({ theme }) => theme.cardBg};
+  text-align: center;
 `;
 
 const SectionTitle = styled(motion.h2)`
-  font-size: 2.25rem; /* text-4xl */
-  font-weight: 700; /* font-bold */
-  text-align: center;
-  margin-bottom: 3rem; /* mb-12 */
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  background: ${({ theme }) => theme.accentGradient};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 
-const ContactForm = styled(motion.form)`
-  max-width: 42rem; /* max-w-xl */
-  margin: 0 auto;
+const SocialsContainer = styled(motion.div)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
 `;
 
-const FormGroup = styled.div`
-  margin-bottom: 1rem; /* mb-4 */
-`;
+const SocialLink = styled.a`
+  font-size: 3rem;
+  color: ${({ theme }) => theme.text}99; /* 60% opacity */
+  transition: all 0.3s ease;
 
-const Label = styled.label`
-  display: block;
-  color: #d1d5db; /* text-gray-300 */
-  margin-bottom: 0.5rem; /* mb-2 */
-`;
-
-const Input = styled.input`
-  width: 100%;
-  padding: 0.75rem 1rem; /* px-4 py-3 */
-  background-color: #334155; /* bg-slate-700 */
-  border: 1px solid #475569; /* border-slate-600 */
-  border-radius: 0.5rem; /* rounded-lg */
-  color: #f8fafc;
-  &:focus {
-    outline: none;
-    border-color: #3b82f6; /* focus:ring-blue-500 */
-    box-shadow: 0 0 0 2px #3b82f6;
-  }
-`;
-
-const Textarea = styled.textarea`
-  width: 100%;
-  padding: 0.75rem 1rem; /* px-4 py-3 */
-  background-color: #334155; /* bg-slate-700 */
-  border: 1px solid #475569; /* border-slate-600 */
-  border-radius: 0.5rem; /* rounded-lg */
-  color: #f8fafc;
-  &:focus {
-    outline: none;
-    border-color: #3b82f6; /* focus:ring-blue-500 */
-    box-shadow: 0 0 0 2px #3b82f6;
-  }
-`;
-
-const SubmitButton = styled.button`
-  background-color: #2563eb; /* bg-blue-600 */
-  color: #ffffff; /* text-white */
-  font-weight: 700; /* font-bold */
-  padding: 0.75rem 2rem; /* py-3 px-8 */
-  border-radius: 9999px; /* rounded-full */
-  font-size: 1.125rem; /* text-lg */
-  transition: background-color 0.3s ease;
-  border: none;
-  cursor: pointer;
   &:hover {
-    background-color: #1d4ed8; /* hover:bg-blue-700 */
+    color: ${({ theme }) => theme.accent};
+    transform: scale(1.2);
   }
 `;
 
-const SubmittedMessage = styled.div`
-  text-align: center;
-  h2 {
-    font-size: 1.875rem; /* text-3xl */
-    font-weight: 700; /* font-bold */
-    color: #ffffff; /* text-white */
-  }
+const QRContainer = styled.div`
+  margin-top: 2rem;
   p {
-    font-size: 1.125rem; /* text-lg */
-    color: #d1d5db; /* text-gray-300 */
-    margin-top: 0.5rem; /* mt-2 */
+    color: ${({ theme }) => theme.text}99; /* 60% opacity */
+    margin-bottom: 1rem;
+  }
+  img {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    border-radius: 1rem;
+    border: 2px solid ${({ theme }) => theme.accent}50; /* 30% opacity */
   }
 `;
 
 const Contact = () => {
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
+  const { t } = useTranslation();
+  const socials = [
+    { name: 'GitHub', icon: <FaGithub />, url: 'https://github.com/the-special-1' },
+    { name: 'LinkedIn', icon: <FaLinkedin />, url: 'https://www.linkedin.com/in/mikiyas-tesfaye-354882352' },
+    { name: 'Telegram', icon: <FaTelegram />, url: 'https://t.me/MTESFAYE12' },
+  ];
 
   return (
     <ContactSection id="contact">
-      <Container>
-        {submitted ? (
-          <SubmittedMessage>
-            <h2>Thank you!</h2>
-            <p>Your message has been sent.</p>
-          </SubmittedMessage>
-        ) : (
-          <>
-            <SectionTitle
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              Get In Touch
-            </SectionTitle>
-            <ContactForm
-              onSubmit={handleSubmit}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <FormGroup>
-                <Label htmlFor="name">Name</Label>
-                <Input type="text" id="name" name="name" required />
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="email">Email</Label>
-                <Input type="email" id="email" name="email" required />
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="message">Message</Label>
-                <Textarea id="message" name="message" rows="5" required />
-              </FormGroup>
-              <div style={{ textAlign: 'center' }}>
-                <SubmitButton type="submit">Send Message</SubmitButton>
-              </div>
-            </ContactForm>
-          </>
-        )}
-      </Container>
+      <SectionTitle
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
+        {t('contact_title')}
+      </SectionTitle>
+      <SocialsContainer
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+      >
+        {socials.map((social) => (
+          <SocialLink key={social.name} href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.name}>
+            {social.icon}
+          </SocialLink>
+        ))}
+      </SocialsContainer>
+      <QRContainer>
+        <p>{t('contact_qr_prompt')}</p>
+        <img src={TelegramQR} alt="Telegram QR Code" />
+      </QRContainer>
     </ContactSection>
   );
 };

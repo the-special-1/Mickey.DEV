@@ -1,22 +1,28 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const AboutSection = styled.section`
   padding: 5rem 1rem; /* py-20 px-4 */
-  background-color: #1e293b; /* bg-slate-800 */
+  background-color: ${({ theme }) => theme.cardBg};
   text-align: center;
 `;
 
 const SectionTitle = styled(motion.h2)`
   font-size: 2.25rem; /* text-4xl */
   font-weight: 700; /* font-bold */
-  margin-bottom: 1.5rem; /* mb-6 */
+  text-align: center;
+  margin-bottom: 3rem; /* mb-12 */
+  background: ${({ theme }) => theme.accentGradient};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 
 const Bio = styled(motion.p)`
   max-width: 48rem; /* max-w-3xl */
   margin: 0 auto 3rem auto; /* mx-auto mb-12 */
   font-size: 1.125rem; /* text-lg */
+  color: ${({ theme }) => theme.text};
   color: #d1d5db; /* text-gray-300 */
 `;
 
@@ -28,7 +34,7 @@ const SkillsContainer = styled.div`
 `;
 
 const SkillTag = styled(motion.div)`
-  background-color: #334155; /* bg-slate-700 */
+  background: ${({ theme }) => theme.accentGradient};
   color: #ffffff; /* text-white */
   font-weight: 600; /* font-semibold */
   padding: 0.5rem 1.25rem; /* py-2 px-5 */
@@ -36,7 +42,8 @@ const SkillTag = styled(motion.div)`
 `;
 
 const About = () => {
-  const skills = ['JavaScript', 'React', 'Node.js', 'Python', 'SQL', 'Cloud Services'];
+  const { t } = useTranslation();
+  const skills = ['JavaScript', 'React', 'Node.js', 'HTML', 'SQL', 'MongoDB','PostgreSQL','Tailwind CSS','React Native','Firebase'];
 
   return (
     <AboutSection id="about">
@@ -47,7 +54,7 @@ const About = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          About Me
+          {t('about_title')}
         </SectionTitle>
         <Bio
           initial={{ opacity: 0, y: 20 }}
@@ -55,7 +62,7 @@ const About = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          I'm a dedicated software engineer with a passion for building elegant and efficient solutions. I thrive on turning complex problems into beautiful, intuitive, and highly performant web applications.
+          {t('about_bio')}
         </Bio>
         <SkillsContainer>
           {skills.map((skill, index) => (

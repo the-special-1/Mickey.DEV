@@ -1,9 +1,15 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import skillupImg from '../assets/skillup.png';
+import shifebooksImg from '../assets/shifebooks.png';
+import lotterybingoImg from '../assets/lotterybingo.png';
+import amitpsmImg from '../assets/psm.png';
+import hilupharmaImg from '../assets/hilu-pharma.jpg';
 
 const ProjectsSection = styled.section`
   padding: 5rem 1rem; /* py-20 px-4 */
-  background-color: #0f172a; /* bg-slate-900 */
+  background: ${({ theme }) => theme.body};
 `;
 
 const SectionTitle = styled(motion.h2)`
@@ -11,6 +17,9 @@ const SectionTitle = styled(motion.h2)`
   font-weight: 700; /* font-bold */
   text-align: center;
   margin-bottom: 3rem; /* mb-12 */
+  background: ${({ theme }) => theme.accentGradient};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 
 const ProjectsGrid = styled.div`
@@ -25,14 +34,15 @@ const ProjectsGrid = styled.div`
 `;
 
 const ProjectCard = styled(motion.div)`
-  background-color: #1e293b; /* bg-slate-800 */
-  border-radius: 0.5rem; /* rounded-lg */
+  background-color: ${({ theme }) => theme.cardBg};
+  border-radius: 0.75rem; /* rounded-xl */
   overflow: hidden;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
-  transition: box-shadow 0.3s ease;
+  box-shadow: ${({ theme }) => theme.shadow};
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
-    box-shadow: 0 0 15px rgba(96, 165, 250, 0.5); /* hover:shadow-blue-500/50 */
+    transform: translateY(-5px);
+    box-shadow: ${({ theme }) => theme.hoverShadow};
   }
 `;
 
@@ -46,61 +56,74 @@ const CardContent = styled.div`
   padding: 1.5rem; /* p-6 */
 `;
 
-const CardTitle = styled.h3`
+const ProjectTitle = styled.h3`
   font-size: 1.5rem; /* text-2xl */
   font-weight: 700; /* font-bold */
   margin-bottom: 0.5rem; /* mb-2 */
+  color: ${({ theme }) => theme.text};
 `;
 
-const CardDescription = styled.p`
-  color: #9ca3af; /* text-gray-400 */
+const ProjectDescription = styled.p`
+  color: ${({ theme }) => theme.text}99; /* 60% opacity */
   margin-bottom: 1rem; /* mb-4 */
 `;
 
 const CardLinks = styled.div`
   display: flex;
-  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto; /* Pushes links to the bottom */
+  padding-top: 1rem; /* Adds space above links */
 `;
 
-const CardLink = styled.a`
-  color: #60a5fa; /* text-blue-400 */
-  transition: color 0.3s ease;
+const ProjectLink = styled.a`
+  color: ${({ theme }) => theme.accent};
+  font-weight: 600; /* font-semibold */
   text-decoration: none;
+  transition: color 0.3s ease;
 
   &:hover {
-    color: #93c5fd; /* hover:text-blue-300 */
-  }
-
-  &.source-code {
-    color: #9ca3af; /* text-gray-400 */
-    &:hover {
-      color: #ffffff; /* hover:text-white */
-    }
+    text-decoration: underline;
   }
 `;
 
 const Projects = () => {
-  const projectData = [
+  const { t } = useTranslation();
+      const projects = [
     {
-      title: 'Project One',
-      description: 'A brief description of the first project, highlighting the technologies used and its purpose.',
-      image: 'https://via.placeholder.com/400x250/1e293b/ffffff?text=Project+One',
-      liveLink: '#',
-      sourceLink: '#',
+      titleKey: 'project_skillup_title',
+      descKey: 'project_skillup_desc',
+      image: skillupImg,
+      liveUrl: 'https://skillup-iqxf.onrender.com/',
+      sourceUrl: '#',
     },
     {
-      title: 'Project Two',
-      description: 'A brief description of the second project, highlighting the technologies used and its purpose.',
-      image: 'https://via.placeholder.com/400x250/1e293b/ffffff?text=Project+Two',
-      liveLink: '#',
-      sourceLink: '#',
+      titleKey: 'project_shifebooks_title',
+      descKey: 'project_shifebooks_desc',
+      image: shifebooksImg,
+      liveUrl: 'https://shife-books-uifp.vercel.app',
+      sourceUrl: '#',
     },
     {
-      title: 'Project Three',
-      description: 'A brief description of the third project, highlighting the technologies used and its purpose.',
-      image: 'https://via.placeholder.com/400x250/1e293b/ffffff?text=Project+Three',
-      liveLink: '#',
-      sourceLink: '#',
+      titleKey: 'project_lotterybingo_title',
+      descKey: 'project_lotterybingo_desc',
+      image: lotterybingoImg,
+      liveUrl: 'https://lotterybingoet.com',
+      sourceUrl: '#',
+    },
+    {
+      titleKey: 'project_amitpsm_title',
+      descKey: 'project_amitpsm_desc',
+      image: amitpsmImg,
+      liveUrl: '#',
+      sourceUrl: 'https://github.com/the-special-1/PSM',
+    },
+    {
+      titleKey: 'project_hilupharma_title',
+      descKey: 'project_hilupharma_desc',
+      image: hilupharmaImg,
+      liveUrl: '#',
+      sourceUrl: 'https://github.com/the-special-1/Hilu-pharma-1',
+      imageStyle: { objectFit: 'contain', background: '#fff' },
     },
   ];
 
@@ -113,24 +136,28 @@ const Projects = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          My Projects
+          {t('projects_title')}
         </SectionTitle>
         <ProjectsGrid>
-          {projectData.map((project, index) => (
+          {projects.map((project, index) => (
             <ProjectCard
-              key={project.title}
+              key={project.titleKey}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
             >
-              <ProjectImage src={project.image} alt={project.title} />
+              <ProjectImage src={project.image} alt={t(project.titleKey)} style={project.imageStyle || {}} />
               <CardContent>
-                <CardTitle>{project.title}</CardTitle>
-                <CardDescription>{project.description}</CardDescription>
-                <CardLinks>
-                  <CardLink href={project.liveLink}>View Live</CardLink>
-                  <CardLink href={project.sourceLink} className="source-code">Source Code</CardLink>
+                <ProjectTitle>{t(project.titleKey)}</ProjectTitle>
+                <ProjectDescription>{t(project.descKey)}</ProjectDescription>
+                                <CardLinks>
+                  {project.liveUrl && project.liveUrl !== '#' && (
+                    <ProjectLink href={project.liveUrl} target="_blank" rel="noopener noreferrer">{t('project_link_live')}</ProjectLink>
+                  )}
+                  {project.sourceUrl && project.sourceUrl !== '#' && (
+                    <ProjectLink href={project.sourceUrl} target="_blank" rel="noopener noreferrer">{t('project_link_source')}</ProjectLink>
+                  )}
                 </CardLinks>
               </CardContent>
             </ProjectCard>
