@@ -1,8 +1,12 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
-  body {
+  html {
     background: ${({ theme }) => theme.body};
+  }
+
+  body {
+    background: transparent;
     color: ${({ theme }) => theme.text};
     font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     transition: all 0.50s linear;

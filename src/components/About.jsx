@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 const AboutSection = styled.section`
   padding: 5rem 1rem; /* py-20 px-4 */
-  background-color: ${({ theme }) => theme.cardBg};
+  background-color: transparent;
   text-align: center;
 `;
 

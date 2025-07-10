@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import TrueFocus from './TrueFocus';
+import SplashCursor from './SplashCursor';
+import Squares from '../Squares';
+  
 
 const HeroSection = styled(motion.section)`
   min-height: 100vh;
@@ -8,7 +12,7 @@ const HeroSection = styled(motion.section)`
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: ${({ theme }) => theme.body};
+  background: transparent;
   padding: 1rem;
   overflow: hidden;
 `;
@@ -59,17 +63,32 @@ const HeroButton = styled(motion.a)`
 `;
 
 const Hero = () => {
+  
+
+
   const { t } = useTranslation();
   return (
+ 
     <HeroSection id="hero">
+  
       <div className="container mx-auto px-4">
-        <HeroTitle
+   
+        <SplashCursor SPLAT_RADIUS={0.05} />
+        {/* <HeroTitle
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
           {t('hero_greeting')}
-        </HeroTitle>
+        </HeroTitle> */}
+        <TrueFocus 
+sentence="Hi, I'm-Mikiyas-Shiferaw"
+manualMode={false}
+blurAmount={5}
+borderColor="purple"
+animationDuration={1}
+pauseBetweenAnimations={0.5}
+/>
         <HeroSubtitle
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

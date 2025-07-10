@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 const ContactSection = styled.section`
   padding: 5rem 1rem;
-  background-color: ${({ theme }) => theme.cardBg};
+  background-color: transparent;
   text-align: center;
 `;
 

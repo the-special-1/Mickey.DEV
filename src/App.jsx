@@ -8,9 +8,10 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import { GlobalStyles } from './styles/GlobalStyles';
 import { lightTheme, darkTheme } from './styles/themes';
+import Squares from './Squares';
 
 const AppContainer = styled.div`
-  /* The background is now handled by GlobalStyles */
+  background: transparent;
 `;
 
 function App() {
@@ -21,11 +22,21 @@ function App() {
   };
 
   return (
+    
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+        <Squares 
+    speed={0.5} 
+    squareSize={70}
+    direction='diagonal' // up, down, left, right, diagonal
+    borderColor='#696969'
+    hoverFillColor='#696969'
+    />
       <GlobalStyles />
       <AppContainer>
+    
         <Header themeToggler={themeToggler} theme={theme} />
         <main>
+     
           <Hero />
           <About />
           <Projects />

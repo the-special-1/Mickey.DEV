@@ -9,7 +9,7 @@ import hilupharmaImg from '../assets/hilu-pharma.jpg';
 
 const ProjectsSection = styled.section`
   padding: 5rem 1rem; /* py-20 px-4 */
-  background: ${({ theme }) => theme.body};
+  background: transparent;
 `;
 
 const SectionTitle = styled(motion.h2)`
